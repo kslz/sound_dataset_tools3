@@ -1,0 +1,86 @@
+### **项目结构概述**
+
+```
+/project-root
+│
+├── src/                            # Python 源代码
+│   ├── __init__.py                 # 标记为Python包
+│   ├── main.py                    # Flask应用程序入口点
+│   ├── config.py                  # 配置文件（Flask，数据库等）
+│   ├── models/                    # 数据库模型
+│   │   ├── __init__.py
+│   │   ├── datasets.py            # 数据集模型
+│   │   ├── audio_files.py         # 音频文件模型
+│   │   ├── annotations.py         # 标注信息模型
+│   │   ├── attributes.py          # 属性模型
+│   │   └── tasks.py               # 任务模型
+│   ├── controllers/               # 控制器（视图）
+│   │   ├── __init__.py
+│   │   ├── dataset_controller.py  # 数据集相关路由
+│   │   ├── audio_controller.py    # 音频文件相关路由
+│   │   ├── annotation_controller.py # 标注信息相关路由
+│   │   └── task_controller.py     # 任务管理相关路由
+│   ├── services/                  # 业务逻辑层
+│   │   ├── __init__.py
+│   │   ├── dataset_service.py     # 数据集管理逻辑
+│   │   ├── audio_service.py       # 音频文件处理逻辑
+│   │   ├── annotation_service.py  # 标注操作逻辑
+│   │   └── task_service.py        # 任务队列管理逻辑
+│   ├── plugins/                   # 数据导入插件
+│   │   ├── __init__.py
+│   │   ├── base_plugin.py         # 插件接口基类
+│   │   └── example_plugin.py      # 数据导入插件示例
+│   ├── utils/                     # 工具函数
+│   │   ├── __init__.py
+│   │   ├── audio_utils.py         # 音频文件辅助函数（格式转换等）
+│   │   └── db_utils.py            # 数据库工具函数
+│   └── tasks/                     # Celery任务（后台任务）
+│       ├── __init__.py
+│       ├── audio_import_task.py   # 音频导入后台任务
+│       ├── data_export_task.py    # 数据导出后台任务
+│       └── annotation_task.py     # 标注任务处理
+│
+├── frontend/                       # VueJS 前端代码
+│   ├── public/                     # 公共文件（index.html等）
+│   ├── src/
+│   │   ├── assets/                 # 图片、字体等静态资源
+│   │   ├── components/             # 可复用的 Vue 组件
+│   │   ├── views/                  # 页面视图
+│   │   ├── store/                  # Vuex 状态管理
+│   │   ├── router.js               # Vue 路由配置
+│   │   ├── App.vue                 # 根组件
+│   │   └── main.js                 # Vue 应用入口
+│   ├── package.json                # 前端依赖和脚本
+│   └── vite.config.js              # Vite 配置
+│
+├── migrations/                     # 数据库迁移脚本（若使用 Alembic）
+│
+├── requirements.txt                # Python 依赖
+├── README.md                       # 项目文档
+└── .gitignore                      # Git 忽略文件
+```
+
+### **关键目录说明**
+
+1. **`src/`**：包含所有与后端相关的Python代码，具体包括：
+   - **`models/`**：数据库模型（数据集、音频文件、标注信息等）。
+   - **`controllers/`**：Flask的路由处理。每个控制器处理不同数据实体的路由（如数据集、音频文件等）。
+   - **`services/`**：业务逻辑层，负责处理与数据相关的核心逻辑（如数据集的增删改查）。
+   - **`plugins/`**：用于数据导入的插件系统，每个插件处理不同格式的音频数据和标注。
+   - **`tasks/`**：后台任务处理，使用Celery来处理长时间的任务（如数据导入、导出、标注等）。
+2. **`frontend/`**：包含前端的Vue.js代码，包括：
+   - **`components/`**：可复用的UI组件（如按钮、表格、表单等）。
+   - **`views/`**：具体的页面视图（如数据集管理页面）。
+   - **`store/`**：Vuex状态管理（如用户认证状态等）。
+   - **`router.js`**：Vue路由配置文件，定义了页面之间的跳转。
+3. **`migrations/`**：数据库迁移脚本，如果您使用Alembic进行数据库迁移的话。
+4. **`requirements.txt`**：列出所有Python依赖库（Flask, SQLAlchemy, Celery等）。
+5. **`README.md`**：项目的文档，包含设置、使用等相关说明。
+6. **`.gitignore`**：Git忽略文件，用于防止不必要的文件（如`__pycache__`、`node_modules/`等）被Git跟踪。
+
+### **功能与模块**
+
+- **数据导入与插件系统**：插件系统用于处理不同格式的音频数据和标注。插件接口允许动态加载插件。
+- **任务队列管理**：后端使用Celery来处理任务队列，确保长时间运行的操作（如数据导入和API标注）不会阻塞用户操作。
+- **API标注功能**：为将来添加外部API（如Whisper）提供扩展接口，支持音频数据的自动标注。
+- **用户与权限管理**：使用Flask-Login进行用户认证，Flask-Principal进行权限控制。
