@@ -9,11 +9,15 @@
 │   ├── config.py                  # 配置文件（Flask，数据库等）
 │   ├── models/                    # 数据库模型
 │   │   ├── __init__.py
-│   │   ├── datasets.py            # 数据集模型
-│   │   ├── audio_files.py         # 音频文件模型
 │   │   ├── annotations.py         # 标注信息模型
+│   │   ├── attribute_aggregations.py		# 聚合属性模型
 │   │   ├── attributes.py          # 属性模型
-│   │   └── tasks.py               # 任务模型
+│   │   ├── audio_files.py         # 音频文件模型
+│   │   ├── datasets.py            # 数据集模型
+│   │   ├── roles.py               # 角色模型
+│   │   ├── tasks.py               # 任务模型
+│   │   ├── user_roles.py          # 用户与角色关联模型
+│   │   └── users.py               # 用户模型
 │   ├── controllers/               # 控制器（视图）
 │   │   ├── __init__.py
 │   │   ├── dataset_controller.py  # 数据集相关路由
