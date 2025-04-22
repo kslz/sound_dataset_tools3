@@ -125,9 +125,13 @@
 - **音频处理**：ffmpeg-python
 - **前端框架**：Vue, Vite
 - **UI组件库**：Element-plus
-- **日志与错误监控**：Flask-Logging, Sentry
+- **日志**：Flask-Logging
+- **用户登录**：Flask-Login
 
 ### 未来扩展
 
 - **API标注扩展**：将来将增加更多的标注API支持，如讯飞、百度等，支持更多音频标注方式。
 - **外部系统API访问**：未来开放系统API供外部系统访问，提供数据查询、标注服务等功能。
+
+#### 
+
