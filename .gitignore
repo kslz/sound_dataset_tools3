@@ -1,3 +1,4 @@
 .idea/*
 frontend
 db_file/*
+test/

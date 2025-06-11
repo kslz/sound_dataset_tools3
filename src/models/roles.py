@@ -15,8 +15,9 @@ class Role(db.Model):
     role_id = db.Column(db.Integer, primary_key=True)
     role_name = db.Column(db.String(50), unique=True, nullable=False)
     role_description = db.Column(db.Text)
-    role_created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    role_updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    role_created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    role_updated_at = db.Column(db.DateTime, default=db.func.current_timestamp(),
+                                onupdate=db.func.current_timestamp())
 
     # 关系定义
     users = db.relationship('User', secondary='user_roles', back_populates='roles')
