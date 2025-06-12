@@ -11,10 +11,10 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from src import db, login_manager
-from .base import BaseModel
+from src.utils.db_utils import to_local_time, format_local_time
 
 
-class User(UserMixin, BaseModel):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     user_id = db.Column(db.Integer, primary_key=True)
     user_username = db.Column(db.String(255), unique=True, nullable=False)
@@ -30,16 +30,16 @@ class User(UserMixin, BaseModel):
 
     # 使用BaseModel中的方法处理时间
     def get_local_created_at(self, tz_name='Asia/Shanghai'):
-        return BaseModel.to_local_time(self.user_created_at, tz_name)
+        return to_local_time(self.user_created_at, tz_name)
 
     def format_created_at(self, tz_name='Asia/Shanghai', fmt='%Y-%m-%d %H:%M:%S'):
-        return BaseModel.format_local_time(self.user_created_at, tz_name, fmt)
+        return format_local_time(self.user_created_at, tz_name, fmt)
 
     def get_local_updated_at(self, tz_name='Asia/Shanghai'):
-        return BaseModel.to_local_time(self.user_updated_at, tz_name)
+        return to_local_time(self.user_updated_at, tz_name)
 
     def format_updated_at(self, tz_name='Asia/Shanghai', fmt='%Y-%m-%d %H:%M:%S'):
-        return BaseModel.format_local_time(self.user_updated_at, tz_name, fmt)
+        return format_local_time(self.user_updated_at, tz_name, fmt)
 
     def get_id(self):
         return str(self.user_id)
